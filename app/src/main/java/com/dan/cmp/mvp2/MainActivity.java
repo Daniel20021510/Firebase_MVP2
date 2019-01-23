@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(llm);
 
 
-        adapter = new CatagoryAdapter(result);
+        adapter = new CatagoryAdapter(result, MainActivity.this);
         recyclerView.setAdapter(adapter);
 
         updateList();
@@ -69,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 result.add(dataSnapshot.getValue(CategoryModel.class));
+
+                adapter = new CatagoryAdapter(result, MainActivity.this);
+                recyclerView.setAdapter(adapter);
+
+
                 adapter.notifyDataSetChanged();
 
             }
@@ -112,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         int index = -1;
 
         for (int i = 0; i < result.size(); i++){
-            if (result.get(i).key.equals(category.key)){
+            if (result.get(i).word.equals(category.word)){
                 index = i;
                 break;
             }
